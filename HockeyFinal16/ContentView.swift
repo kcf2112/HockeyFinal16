@@ -6,7 +6,9 @@
 //
 // TODO:
 // - Find a free NHL playoff data feed.
-// - Each pairing represents a series in the bracket; create a BracketSeriesView.
+// - Each pairing represents a series in the bracket
+//   -- When tapped, a pairing opens a view to show info about the series.
+//   -- Create a BracketSeriesView struct.
 // - Combine team logos with team names.
 // - Add series results (games won for each team).
 //
@@ -17,47 +19,124 @@ import SwiftUI
 // playoff bracket.
 //
 struct ContentView: View {
-    let bracketSeriesWidth = 80.0
+    let bracketSeriesWidth = 75.0
+    // let bracketSeriesWidth = 80.0
     var body: some View {
         VStack {
             Spacer()
-            HStack(spacing: 45) {
+            HStack(spacing: 15) {
                 // Final 16, group 1.
-                VStack {
-                    Text("DAL")
-                    Text("VGK")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.blue)
+                        .frame(width: bracketSeriesWidth, height: 65)
+                    VStack {
+                        Text("DAL")
+                            .foregroundStyle(.white)
+                        Divider()
+                            .frame(width: 80)
+                            .overlay(.white)
+
+                        Text("VGK")
+                            .foregroundStyle(.white)
+                    }
                 }
-                VStack {
-                    Text("WPG")
-                    Text("COL")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.blue)
+                        .frame(width: bracketSeriesWidth, height: 65)
+                    VStack {
+                        Text("WPG")
+                            .foregroundStyle(.white)
+                        Divider()
+                            .frame(width: 80)
+                            .overlay(.white)
+
+                        Text("COL")
+                            .foregroundStyle(.white)
+                    }
                 }
-                VStack {
-                    Text("VAN")
-                    Text("NSH")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.blue)
+                        .frame(width: bracketSeriesWidth, height: 65)
+                    VStack {
+                        Text("VAN")
+                            .foregroundStyle(.white)
+                        Divider()
+                            .frame(width: 80)
+                            .overlay(.white)
+
+                        Text("NSH")
+                            .foregroundStyle(.white)
+                    }
                 }
-                VStack {
-                    Text("EDM")
-                    Text("LAK")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.blue)
+                        .frame(width: bracketSeriesWidth, height: 65)
+                    VStack {
+                        Text("EDM")
+                            .foregroundStyle(.white)
+                        Divider()
+                            .frame(width: 80)
+                            .overlay(.white)
+
+                        Text("LAK")
+                            .foregroundStyle(.white)
+                    }
                 }
             }
             Spacer()
-            HStack(spacing: 120) {
+            HStack(spacing: 80) {
                 // Quarterfinals, group 1.
-                VStack {
-                    Text("DAL")
-                    Text("COL")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.blue)
+                        .frame(width: bracketSeriesWidth, height: 65)
+                    VStack {
+                        Text("DAL")
+                            .foregroundStyle(.white)
+                        Divider()
+                            .frame(width: 80)
+                            .overlay(.white)
+
+                        Text("COL")
+                            .foregroundStyle(.white)
+                    }
                 }
-                VStack {
-                    Text("VAN")
-                    Text("EDM")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.blue)
+                        .frame(width: bracketSeriesWidth, height: 65)
+                    VStack {
+                        Text("VAN")
+                            .foregroundStyle(.white)
+                        Divider()
+                            .frame(width: 80)
+                            .overlay(.white)
+
+                        Text("EDM")
+                            .foregroundStyle(.white)
+                    }
                 }
             }
             Spacer()
             HStack {
                 // Semifinals, series 1.
-                VStack {
-                    Text("DAL")
-                    Text("EDM")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.blue)
+                        .frame(width: bracketSeriesWidth, height: 65)
+                    VStack {
+                        Text("DAL")
+                            .foregroundStyle(.white)
+                        Divider()
+                            .frame(width: 80)
+                            .overlay(.white)
+                        Text("EDM")
+                            .foregroundStyle(.white)
+                    }
                 }
             }
             Spacer()
@@ -66,7 +145,7 @@ struct ContentView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 15)
                         .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 70)
+                        .frame(width: bracketSeriesWidth, height: 65)
                     VStack {
                         Text("EDM")
                             .foregroundStyle(.white)
@@ -81,41 +160,115 @@ struct ContentView: View {
             Spacer()
             HStack {
                 // Semifinals, series 2.
-                VStack {
-                    Text("NYR")
-                    Text("FLA")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.blue)
+                        .frame(width: bracketSeriesWidth, height: 65)
+                    VStack {
+                        Text("NYR")
+                            .foregroundStyle(.white)
+                        Divider()
+                            .frame(width: 80)
+                            .overlay(.white)
+                        Text("FLA")
+                            .foregroundStyle(.white)
+                    }
                 }
             }
             Spacer()
-            HStack(spacing: 120) {
+            HStack(spacing: 80) {
                 // Quarterfinals, group 2.
-                VStack {
-                    Text("FLA")
-                    Text("BOS")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.blue)
+                        .frame(width: bracketSeriesWidth, height: 65)
+                    VStack {
+                        Text("FLA")
+                            .foregroundStyle(.white)
+                        Divider()
+                            .frame(width: 80)
+                            .overlay(.white)
+                        Text("BOS")
+                            .foregroundStyle(.white)
+                    }
                 }
-                VStack {
-                    Text("NYR")
-                    Text("CAR")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.blue)
+                        .frame(width: bracketSeriesWidth, height: 65)
+                    VStack {
+                        Text("NYR")
+                            .foregroundStyle(.white)
+                        Divider()
+                            .frame(width: 80)
+                            .overlay(.white)
+                        Text("CAR")
+                            .foregroundStyle(.white)
+                    }
                 }
             }
             Spacer()
-            HStack(spacing: 45) {
+            HStack(spacing: 15) {
                 // Final 16, group 2.
-                VStack {
-                    Text("FLA")
-                    Text("TBL")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.blue)
+                        .frame(width: bracketSeriesWidth, height: 65)
+                    VStack {
+                        Text("FLA")
+                            .foregroundStyle(.white)
+                        Divider()
+                            .frame(width: 80)
+                            .overlay(.white)
+
+                        Text("TBL")
+                            .foregroundStyle(.white)
+                    }
                 }
-                VStack {
-                    Text("BOS")
-                    Text("TOR")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.blue)
+                        .frame(width: bracketSeriesWidth, height: 65)
+                    VStack {
+                        Text("BOS")
+                            .foregroundStyle(.white)
+                        Divider()
+                            .frame(width: 80)
+                            .overlay(.white)
+
+                        Text("TOR")
+                            .foregroundStyle(.white)
+                    }
                 }
-                VStack {
-                    Text("NYR")
-                    Text("WSH")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.blue)
+                        .frame(width: bracketSeriesWidth, height: 65)
+                    VStack {
+                        Text("NYR")
+                            .foregroundStyle(.white)
+                        Divider()
+                            .frame(width: 80)
+                            .overlay(.white)
+
+                        Text("WSH")
+                            .foregroundStyle(.white)
+                    }
                 }
-                VStack {
-                    Text("CAR")
-                    Text("NYI")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.blue)
+                        .frame(width: bracketSeriesWidth, height: 65)
+                    VStack {
+                        Text("CAR")
+                            .foregroundStyle(.white)
+                        Divider()
+                            .frame(width: 80)
+                            .overlay(.white)
+
+                        Text("NYI")
+                            .foregroundStyle(.white)
+                    }
                 }
             }
             Spacer()
