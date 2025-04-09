@@ -8,268 +8,98 @@
 // - Find a free NHL playoff data feed.
 // - Each pairing represents a series in the bracket
 //   -- When tapped, a pairing opens a view to show info about the series.
-//   -- Create a BracketSeriesView struct.
+//   -- Create a BracketPairView struct.
 // - Combine team logos with team names.
 // - Add series results (games won for each team).
 //
 
 import SwiftUI
 
+let bracketSeriesWidth = 75.0
+
+// Represents a pair of NHL teams that play a series of games in the bracket.
+struct Pairing {
+    var team1: String
+    var team2: String
+}
+
+struct BracketPairView: View {
+    let pair: Pairing
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15)
+                .fill(.blue)
+                .frame(width: bracketSeriesWidth, height: 65)
+            VStack {
+                Text(pair.team1)
+                    .foregroundStyle(.white)
+                Divider()
+                    .frame(width: 80)
+                    .overlay(.white)
+
+                Text(pair.team2)
+                    .foregroundStyle(.white)
+            }
+        }
+    }
+}
+
 // This screen lays out shape and text components to depict a
 // playoff bracket.
 //
+// TODO: Add logic to read data from a JSON file, probably in a ForEach
+//
 struct ContentView: View {
-    let bracketSeriesWidth = 75.0
-    // let bracketSeriesWidth = 80.0
     var body: some View {
         VStack {
             Spacer()
             HStack(spacing: 15) {
-                // Final 16, group 1.
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 65)
-                    VStack {
-                        Text("DAL")
-                            .foregroundStyle(.white)
-                        Divider()
-                            .frame(width: 80)
-                            .overlay(.white)
-
-                        Text("VGK")
-                            .foregroundStyle(.white)
-                    }
-                }
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 65)
-                    VStack {
-                        Text("WPG")
-                            .foregroundStyle(.white)
-                        Divider()
-                            .frame(width: 80)
-                            .overlay(.white)
-
-                        Text("COL")
-                            .foregroundStyle(.white)
-                    }
-                }
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 65)
-                    VStack {
-                        Text("VAN")
-                            .foregroundStyle(.white)
-                        Divider()
-                            .frame(width: 80)
-                            .overlay(.white)
-
-                        Text("NSH")
-                            .foregroundStyle(.white)
-                    }
-                }
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 65)
-                    VStack {
-                        Text("EDM")
-                            .foregroundStyle(.white)
-                        Divider()
-                            .frame(width: 80)
-                            .overlay(.white)
-
-                        Text("LAK")
-                            .foregroundStyle(.white)
-                    }
-                }
+                // Final 16, Western Conference group.
+                BracketPairView(pair: Pairing(team1: "DAL", team2: "VGK"))
+                BracketPairView(pair: Pairing(team1: "WPG", team2: "COL"))
+                BracketPairView(pair: Pairing(team1: "VAN", team2: "NSH"))
+                BracketPairView(pair: Pairing(team1: "EDM", team2: "LAK"))
             }
             Spacer()
             HStack(spacing: 80) {
-                // Quarterfinals, group 1.
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 65)
-                    VStack {
-                        Text("DAL")
-                            .foregroundStyle(.white)
-                        Divider()
-                            .frame(width: 80)
-                            .overlay(.white)
-
-                        Text("COL")
-                            .foregroundStyle(.white)
-                    }
-                }
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 65)
-                    VStack {
-                        Text("VAN")
-                            .foregroundStyle(.white)
-                        Divider()
-                            .frame(width: 80)
-                            .overlay(.white)
-
-                        Text("EDM")
-                            .foregroundStyle(.white)
-                    }
-                }
+                // Quarterfinals.
+                BracketPairView(pair: Pairing(team1: "DAL", team2: "COL"))
+                BracketPairView(pair: Pairing(team1: "VAN", team2: "EDM"))
+            }
+            Spacer()
+            Text("Western Conference")
+            Spacer()
+            HStack {
+                // Semifinals: Western Conference Championship series.
+                BracketPairView(pair: Pairing(team1: "DAL", team2: "EDM"))
             }
             Spacer()
             HStack {
-                // Semifinals, series 1.
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 65)
-                    VStack {
-                        Text("DAL")
-                            .foregroundStyle(.white)
-                        Divider()
-                            .frame(width: 80)
-                            .overlay(.white)
-                        Text("EDM")
-                            .foregroundStyle(.white)
-                    }
-                }
+                // Finals: Stanley Cup series.
+                // TODO: Add decoration to highlight this pairing.
+                BracketPairView(pair: Pairing(team1: "EDM", team2: "FLA"))
             }
             Spacer()
             HStack {
-                // Finals, Stanley Cup.
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 65)
-                    VStack {
-                        Text("EDM")
-                            .foregroundStyle(.white)
-                        Divider()
-                            .frame(width: 80)
-                            .overlay(.white)
-                        Text("FLA")
-                            .foregroundStyle(.white)
-                    }
-                }
+                // Semifinals: Eastern Conference Championship series.
+                BracketPairView(pair: Pairing(team1: "NYR", team2: "FLA"))
             }
             Spacer()
-            HStack {
-                // Semifinals, series 2.
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 65)
-                    VStack {
-                        Text("NYR")
-                            .foregroundStyle(.white)
-                        Divider()
-                            .frame(width: 80)
-                            .overlay(.white)
-                        Text("FLA")
-                            .foregroundStyle(.white)
-                    }
-                }
-            }
+            Text("Eastern Conference")
             Spacer()
             HStack(spacing: 80) {
-                // Quarterfinals, group 2.
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 65)
-                    VStack {
-                        Text("FLA")
-                            .foregroundStyle(.white)
-                        Divider()
-                            .frame(width: 80)
-                            .overlay(.white)
-                        Text("BOS")
-                            .foregroundStyle(.white)
-                    }
-                }
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 65)
-                    VStack {
-                        Text("NYR")
-                            .foregroundStyle(.white)
-                        Divider()
-                            .frame(width: 80)
-                            .overlay(.white)
-                        Text("CAR")
-                            .foregroundStyle(.white)
-                    }
-                }
+                // Quarterfinals.
+                BracketPairView(pair: Pairing(team1: "FLA", team2: "BOS"))
+                BracketPairView(pair: Pairing(team1: "NYR", team2: "CAR"))
             }
             Spacer()
             HStack(spacing: 15) {
-                // Final 16, group 2.
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 65)
-                    VStack {
-                        Text("FLA")
-                            .foregroundStyle(.white)
-                        Divider()
-                            .frame(width: 80)
-                            .overlay(.white)
-
-                        Text("TBL")
-                            .foregroundStyle(.white)
-                    }
-                }
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 65)
-                    VStack {
-                        Text("BOS")
-                            .foregroundStyle(.white)
-                        Divider()
-                            .frame(width: 80)
-                            .overlay(.white)
-
-                        Text("TOR")
-                            .foregroundStyle(.white)
-                    }
-                }
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 65)
-                    VStack {
-                        Text("NYR")
-                            .foregroundStyle(.white)
-                        Divider()
-                            .frame(width: 80)
-                            .overlay(.white)
-
-                        Text("WSH")
-                            .foregroundStyle(.white)
-                    }
-                }
-                ZStack {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.blue)
-                        .frame(width: bracketSeriesWidth, height: 65)
-                    VStack {
-                        Text("CAR")
-                            .foregroundStyle(.white)
-                        Divider()
-                            .frame(width: 80)
-                            .overlay(.white)
-
-                        Text("NYI")
-                            .foregroundStyle(.white)
-                    }
-                }
+                // Final 16, Eastern Conference group.
+                BracketPairView(pair: Pairing(team1: "FLA", team2: "TBL"))
+                BracketPairView(pair: Pairing(team1: "BOS", team2: "TOR"))
+                BracketPairView(pair: Pairing(team1: "NYR", team2: "WSH"))
+                BracketPairView(pair: Pairing(team1: "CAR", team2: "NYI"))
             }
             Spacer()
         }
