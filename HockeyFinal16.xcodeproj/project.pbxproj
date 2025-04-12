@@ -29,9 +29,33 @@
 		5E2FA34D2D9F2D9700EABD0F /* HockeyFinal16UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HockeyFinal16UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5E9F80302DA984C80028DA09 /* Exceptions for "HockeyFinal16" folder in "HockeyFinal16" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				playoffSchedule2024.json,
+			);
+			target = 5E2FA3352D9F2D9500EABD0F /* HockeyFinal16 */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		5E9F80312DA984C80028DA09 /* Exceptions for "HockeyFinal16" folder in "Compile Sources" phase from "HockeyFinal16" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 5E2FA3322D9F2D9500EABD0F /* Sources */;
+			membershipExceptions = (
+				playoffSchedule2024.json,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5E2FA3382D9F2D9500EABD0F /* HockeyFinal16 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5E9F80302DA984C80028DA09 /* Exceptions for "HockeyFinal16" folder in "HockeyFinal16" target */,
+				5E9F80312DA984C80028DA09 /* Exceptions for "HockeyFinal16" folder in "Compile Sources" phase from "HockeyFinal16" target */,
+			);
 			path = HockeyFinal16;
 			sourceTree = "<group>";
 		};
