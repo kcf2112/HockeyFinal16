@@ -20,6 +20,8 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
+        // Lead with bracket view.
+        // TODO: Need some other welcome screen?
         PlayoffBracketView()
     }
 }

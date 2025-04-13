@@ -17,11 +17,11 @@ struct HttpService<T: Codable> {
 
     /*
      Returns the populated model object based on the decoded JSON data retrieved from the URL.
-     The default decoding strategy values are the usual Swift defaults.  Most JSON returned
-     from the remote data is an array of objects, but not all.
+     The default decoding strategy values are the usual Swift defaults.
+     Important: For the NHL api, most returned JSON is a large object (vice array).
      */
     @MainActor
-    func getJSON( isJSONArray: Bool = true,
+    func getJSON( isJSONArray: Bool = false,
                   dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
                   keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys ) async throws -> T {
         //  Verify the URL
@@ -30,13 +30,12 @@ struct HttpService<T: Codable> {
         }
         
         do {
-            //  Make the call to the URL with the request
+            //  Make the call to the URL with the request.
             let (data, response) = try await URLSession.shared.data( from: url )
             
-            //  Verify that the response is valid and the status code 200
-            guard
-                let httpResponse = response as? HTTPURLResponse,
-                    httpResponse.statusCode >= 200 && httpResponse.statusCode < 300
+            //  Verify that the response is valid and the status code is not an error.
+            guard let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode >= 200 && httpResponse.statusCode < 300
             else {
                 throw APIError.invalidResponseStatus
             }
