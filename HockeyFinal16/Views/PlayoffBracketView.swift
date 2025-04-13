@@ -31,16 +31,34 @@ struct PlayoffBracketView: View {
         var body: some View {
             ZStack {
                 RoundedRectangle(cornerRadius: 15)
-                    .fill(.blue)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(stops: [
+                                Gradient.Stop(color: pair.team1Color, location: 0.5),
+                                Gradient.Stop(color: pair.team2Color, location: 0.5)
+                            ]),
+                            startPoint: .top,
+                            endPoint: .bottom))
                     .frame(width: bracketSeriesWidth, height: 65)
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Color.gray, lineWidth: 3)
+                    .frame(width: bracketSeriesWidth, height: 65)
+                Rectangle()
+                    .stroke(Color.gray, lineWidth: 2)
+                    .frame(width: bracketSeriesWidth, height: 1)
+                // TODO: Compute text color for better contrast.
                 VStack {
-                    Text(pair.team1)
-                        .foregroundStyle(.white)
-                    Divider()
-                        .frame(width: 80)
-                        .overlay(.white)
-                    Text(pair.team2)
-                        .foregroundStyle(.white)
+                    Spacer()
+                    HStack() {
+                        Text(pair.team1).foregroundStyle(.white)
+                        Text(pair.team1Wins).foregroundStyle(.white)
+                    }
+                    Spacer()
+                    HStack() {
+                        Text(pair.team2).foregroundStyle(.white)
+                        Text(pair.team2Wins).foregroundStyle(.white)
+                    }
+                    Spacer()
                 }
             }
         }
@@ -126,7 +144,6 @@ struct PlayoffBracketView: View {
                 Spacer()
                 HStack() {
                     // Finals: Stanley Cup series.
-                    // TODO: Add decoration to highlight this pairing.
                     Image("NHLPLAYOFFS")
                         .resizable()
                         .scaledToFit()
@@ -137,9 +154,6 @@ struct PlayoffBracketView: View {
                         BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[14]))
                     }
                 }
-                .frame(minWidth: 1, maxWidth: .infinity )
-                .padding(-3)
-                .background(.yellow)
                 Spacer()
                 HStack {
                     // Semifinals: Western Conference finals.
@@ -194,34 +208,10 @@ struct PlayoffBracketView: View {
             .padding([.leading, .trailing], 10)
             .navigationTitle("NHL Playoffs")
             .task {
-                print("Invoke dataManager.loadBracket with year: \(playoffYear)")
+                print("Invoke dataManager.loadBracket with default year: \(playoffYear)")
                 await dataManager.loadBracket(year: playoffYear)
             }
 
         }
     }
-    
-    // TODO: This function does not work in this context.
-    // Review DivDemo (which is similar and works) to see how to
-    // retrieve data asynchronously.
-//    @MainActor
-//    func changePlayoffYear() async {
-//        print("changePlayoffYear: Retrieve new data...")
-//        let url = "https://api-web.nhle.com/v1/playoff-bracket/2025"
-//        var bracketData: Bracket
-//        let httpSvc = HttpService<Bracket>( urlString: url )
-//        
-//        do {
-//            bracketData = try await httpSvc.getJSON()
-//            //bracketData = try httpSvc.getJSON()
-//        }
-//        catch {
-//            if( error.localizedDescription == "cancelled" ) {
-//                // Not a true retrieval error, a routine task cancellation
-//            }
-//            else {
-//                print( "Could not retrieve data: \(error)" );
-//            }
-//        }
-//    }
 }

@@ -9,9 +9,9 @@
 import Foundation
 import SwiftUI
 
-enum TeamColors: Hashable
+enum TeamColors: String, Hashable, CaseIterable
 {
-    case ANA, ARI, BOS, BUF, CGY, CAR, CHI, COL, CBJ, DAL, DET, EDM, FLO, LAK, MIN, MTL, NSH, NJD, NYI, NYR, OTT, PHI, PIT, SEA, SJS, STL, TBL, TOR, VAN, VGK, WSH, WPJ
+    case ANA, ARI, BOS, BUF, CGY, CAR, CHI, COL, CBJ, DAL, DET, EDM, FLA, LAK, MIN, MTL, NSH, NJD, NYI, NYR, OTT, PHI, PIT, SEA, SJS, STL, TBL, TOR, VAN, VGK, WSH, WPG
     
     var primaryColor: Color
     {
@@ -22,7 +22,7 @@ enum TeamColors: Hashable
             case .ARI:
                 return .brickRed
             case .BOS:
-                return .yellow
+                return .bostonGold
             case .BUF:
                 return .navyBlue
             case .CGY:
@@ -41,7 +41,7 @@ enum TeamColors: Hashable
                 return .red
             case .EDM:
                 return .navy
-            case .FLO:
+            case .FLA:
                 return .blue
             case .LAK:
                 return .silver
@@ -79,7 +79,7 @@ enum TeamColors: Hashable
                 return .gold
             case .WSH:
                 return .red
-            case .WPJ:
+            case .WPG:
                 return .polarNightBlue
         }
     }
@@ -112,7 +112,7 @@ enum TeamColors: Hashable
                 return .white
             case .EDM:
                 return .orange
-            case .FLO:
+            case .FLA:
                 return .red
             case .LAK:
                 return .black
@@ -150,7 +150,7 @@ enum TeamColors: Hashable
                 return .black
             case .WSH:
                 return .blue
-            case .WPJ:
+            case .WPG:
                 return .red
         }
     }
@@ -183,7 +183,7 @@ enum TeamColors: Hashable
                 return .white
             case .EDM:
                 return .white
-            case .FLO:
+            case .FLA:
                 return .flatGold
             case .LAK:
                 return .white
@@ -221,7 +221,7 @@ enum TeamColors: Hashable
                 return .steelGray
             case .WSH:
                 return .white
-            case .WPJ:
+            case .WPG:
                 return .silver
         }
     }
@@ -229,21 +229,33 @@ enum TeamColors: Hashable
 
 extension Color
 {
-    static let forestGreen = Color(UIColor(red: 21, green: 71, blue: 52, alpha: 1))
-    static let metallicGold = Color(UIColor(red: 181, green: 152, blue: 90, alpha: 1))
-    static let brickRed = Color(UIColor(red: 140, green: 38, blue: 51, alpha: 1))
+    // static let forestGreen = Color(UIColor(red: 21, green: 71, blue: 52, alpha: 1))
+    static let forestGreen = Color(red: 21/255, green: 71/255, blue: 52/255)
+    // static let metallicGold = Color(UIColor(red: 181, green: 152, blue: 90, alpha: 1))
+    static let metallicGold = Color(red: 181/255, green: 152/255, blue: 90/255)
+    // static let brickRed = Color(UIColor(red: 140, green: 38, blue: 51, alpha: 1))
+    static let brickRed = Color(red: 140, green: 38, blue: 51)
     static let navyBlue = Color(UIColor(red: 0, green: 38, blue: 84, alpha: 1))
-    static let gold = Color(UIColor(red: 204, green: 138, blue: 0, alpha: 1))
-    static let burgundy = Color(UIColor(red: 111, green: 38, blue: 61, alpha: 1))
-    static let victoryGreen = Color(UIColor(red: 0, green: 99, blue: 65, alpha: 1))
-    static let navy = Color(UIColor(red: 4, green: 30, blue: 66, alpha: 1))
-    static let silver = Color(UIColor(red: 162, green: 170, blue: 173, alpha: 1))
-    static let royalBlue = Color(UIColor(red: 0, green: 48, blue: 135, alpha: 1))
+    // static let gold = Color(UIColor(red: 204, green: 138, blue: 0, alpha: 1))
+    static let gold = Color(red: 204/255, green: 138/255, blue: 0)
+    // static let burgundy = Color(UIColor(red: 111, green: 38, blue: 61, alpha: 1))
+    static let burgundy = Color(red: 111/255, green: 38/255, blue: 61/255)
+    // static let victoryGreen = Color(UIColor(red: 0, green: 99, blue: 65, alpha: 1))
+    static let victoryGreen = Color(red: 0, green: 99/255, blue: 65/255)
+    // static let navy = Color(UIColor(red: 4, green: 30, blue: 66, alpha: 1))
+    static let navy = Color(red: 4/255, green: 30/255, blue: 66/255)
+    // static let silver = Color(UIColor(red: 162, green: 170, blue: 173, alpha: 1))
+    static let silver = Color(red: 162/255, green: 170/255, blue: 173/255)
+    // static let royalBlue = Color(UIColor(red: 0, green: 48, blue: 135, alpha: 1))
+    static let royalBlue = Color(red: 0, green: 48/255, blue: 135/255)
     static let pittsburghGold = Color(UIColor(red: 181, green: 152, blue: 90, alpha: 1))
+    static let bostonGold = Color(red: 252/255, green: 181/255, blue: 20/255)
     static let iceBlue = Color(UIColor(red: 153, green: 217, blue: 217, alpha: 1))
     static let deepPacificTeal = Color(UIColor(red: 0, green: 98, blue: 114, alpha: 1))
-    static let tampaBayBlue = Color(UIColor(red: 0, green: 32, blue: 91, alpha: 1))
-    static let polarNightBlue = Color(UIColor(red: 4, green: 30, blue: 66, alpha: 1))
+    // static let tampaBayBlue = Color(UIColor(red: 0, green: 32, blue: 91, alpha: 1))
+    static let tampaBayBlue = Color(red: 0, green: 32/255, blue: 91/255)
+    // static let polarNightBlue = Color(UIColor(red: 4, green: 30, blue: 66, alpha: 1))
+    static let polarNightBlue = Color(red: 4/255, green: 30/255, blue: 66/255)
     static let desertSand = Color(UIColor(red: 226, green: 214, blue: 181, alpha: 1))
     static let ironRangeRed = Color(UIColor(red: 166, green: 25, blue: 46, alpha: 1))
     static let deepSeaBlue = Color(UIColor(red: 0, green: 22, blue: 40, alpha: 1))

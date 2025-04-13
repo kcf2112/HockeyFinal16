@@ -12,7 +12,9 @@ import SwiftUI
 // See https://www.donnywals.com/comparing-observable-to-observableobjects/
 // @Observable // iOS 17.0 or newer
 class NHLDataManager : ObservableObject {
-    //
+    
+    // TODO: Fix this.
+    // A default data set might be needed, but we should be able to download it.
     static var defaultBracket: Bracket = Bundle.main.decode("playoffs2024.json")
     
     // @Published var bracket: Bracket
@@ -21,12 +23,11 @@ class NHLDataManager : ObservableObject {
     @MainActor
     func loadBracket( year: String ) async {
         let targetUrl = "https://api-web.nhle.com/v1/playoff-bracket/\(year)"
-        print( "NHLDataManager loadBracket: targetUrl: \(targetUrl)" )
+        // print( "NHLDataManager loadBracket: targetUrl: \(targetUrl)" )
         
         let httpService = HttpService<Bracket>( urlString: targetUrl )
         do {
             let bracket: Bracket = try await httpService.getJSON(isJSONArray: false)
-            print( "NHLDataManager loadBracket: Got a bracket" )
             bracketBucket[0] = bracket
         }
         catch {
