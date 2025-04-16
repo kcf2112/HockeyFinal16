@@ -5,9 +5,11 @@
 //  Created by Kevin Filer on 4/11/25.
 //
 
-// This is the JSON returned from the api call to https://api-web.nhle.com/v1/schedule/playoff-series/20232024/a
-// which is playoff series A for the 2024 playoffs.  We need this info to gather the game IDs, which are needed
-// in follow-on retrievals to get more details about the individual playoff games.
+// This is the JSON returned from the api call to
+// https://api-web.nhle.com/v1/schedule/playoff-series/20232024/a
+// which is playoff series A for the 2024 playoffs.  We need this info to gather the game
+// IDs, which are needed in follow-on retrievals to get more details about the individual
+// playoff games.
 {
     "round": 1,
     "roundAbbrev": "R1",

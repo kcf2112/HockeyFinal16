@@ -18,12 +18,9 @@ class NHLDataManager {
     
     let BASE_URL = "https://api-web.nhle.com/v1/"
     
-    // TODO: Fix this.
-    // A default data set might be needed, but we should be able to download it.
-    static var defaultBracket: Bracket = Bundle.main.decode("playoffs2024.json")
-    
     var bracket = Bracket()
     var playoffSeries = PlayoffSeries()
+    var gameScores: [String : [Int]] = [:]
     
     /*
      Retrieve the entire 15-game playoff bracket.
@@ -62,6 +59,23 @@ class NHLDataManager {
         do {
             let series: PlayoffSeries = try await httpService.getJSON(isJSONArray: false)
             playoffSeries = series
+            
+            // Building the series game scores here simplifies processing in the view.
+            let topTeam = series.topSeedTeam.abbrev
+            let botTeam = series.bottomSeedTeam.abbrev
+            var topScores = [Int]()
+            var botScores = [Int]()
+            
+            for game in series.games {
+                let topScore =
+                    game.awayTeam.abbrev == topTeam ? game.awayTeam.score : game.homeTeam.score
+                topScores.append(topScore)
+                let botScore =
+                    game.awayTeam.abbrev == botTeam ? game.awayTeam.score : game.homeTeam.score
+                botScores.append(botScore)
+            }
+            gameScores[topTeam] = topScores
+            gameScores[botTeam] = botScores
         }
         catch {
             if( error.localizedDescription.contains( "cancelled" ) ) {
@@ -73,5 +87,20 @@ class NHLDataManager {
             }
             // playoffSeries = PlayoffSeries()
         }
+    }
+    func isWinner(game: PlayoffSeries.Game, teamAbbrev: String) -> Bool {
+        var teamAbbrevScore = 0
+        var otherTeamScore = 0
+        
+        if teamAbbrev == game.homeTeam.abbrev {
+            teamAbbrevScore = game.homeTeam.score
+            otherTeamScore = game.awayTeam.score
+        }
+        else {
+            teamAbbrevScore = game.awayTeam.score
+            otherTeamScore = game.homeTeam.score
+        }
+        
+        return teamAbbrevScore > otherTeamScore
     }
 }

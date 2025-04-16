@@ -71,7 +71,7 @@ struct PlayoffBracketView: View {
      
     @State private var playoffYear = "2024"
     @State private var playoffYearIdx = 1
-    var nhlData = NHLDataManager()
+    @State var nhlData = NHLDataManager()
     
     let years = ["2025", "2024", "2023", "2022", "2021", "2020"]
         
@@ -96,7 +96,6 @@ struct PlayoffBracketView: View {
                 Spacer()
                 HStack(spacing: 15) {
                     // Final 16, Eastern Conference group.
-                    // TODO: Rethink the 'bracketBucket' approach.
                     NavigationLink {
                         SeriesDetailView(fromSeries: nhlData.bracket.series[0])
                     } label: {
@@ -208,7 +207,7 @@ struct PlayoffBracketView: View {
                 Spacer()
             }
             .padding([.leading, .trailing], 10)
-            .navigationTitle("NHL Playoffs")
+            .navigationTitle("NHL Final 16 \(playoffYear)")
             .task {
                 await nhlData.loadBracket(year: playoffYear)
             }
