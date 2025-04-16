@@ -40,16 +40,18 @@ struct PlayoffBracketView: View {
                             startPoint: .top,
                             endPoint: .bottom))
                     .frame(width: bracketSeriesWidth, height: 65)
+                // Outline the ractangle.
                 RoundedRectangle(cornerRadius: 15)
                     .stroke(Color.gray, lineWidth: 3)
                     .frame(width: bracketSeriesWidth, height: 65)
+                // Horizontal line.
                 Rectangle()
                     .stroke(Color.gray, lineWidth: 2)
                     .frame(width: bracketSeriesWidth, height: 1)
-                // TODO: Compute text color for better contrast.
                 VStack {
                     Spacer()
                     HStack() {
+                        // TODO: Compute text color for better contrast?
                         Text(pair.team1).foregroundStyle(.white)
                         Text(pair.team1Wins).foregroundStyle(.white)
                     }
@@ -69,10 +71,10 @@ struct PlayoffBracketView: View {
      
     @State private var playoffYear = "2024"
     @State private var playoffYearIdx = 1
-    @StateObject var dataManager = NHLDataManager()
+    var nhlData = NHLDataManager()
     
     let years = ["2025", "2024", "2023", "2022", "2021", "2020"]
-    
+        
     // See Models/Bracket.swift for info about the playoff data.
     var body: some View {
         NavigationStack {
@@ -87,7 +89,7 @@ struct PlayoffBracketView: View {
             }
             .onChange(of: playoffYear) {
                 Task {
-                    await dataManager.loadBracket(year: playoffYear)
+                    await nhlData.loadBracket(year: playoffYear)
                 }
             }
             VStack {
@@ -96,38 +98,38 @@ struct PlayoffBracketView: View {
                     // Final 16, Eastern Conference group.
                     // TODO: Rethink the 'bracketBucket' approach.
                     NavigationLink {
-                        SeriesDetailView(fromSeries: dataManager.bracketBucket[0].series[0])
+                        SeriesDetailView(fromSeries: nhlData.bracket.series[0])
                     } label: {
-                        BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[0]))
+                        BracketPairView(pair: SeriesPair(fromSeries: nhlData.bracket.series[0]))
                     }
                     NavigationLink {
-                        SeriesDetailView(fromSeries: dataManager.bracketBucket[0].series[1])
+                        SeriesDetailView(fromSeries: nhlData.bracket.series[1])
                     } label: {
-                        BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[1]))
+                        BracketPairView(pair: SeriesPair(fromSeries: nhlData.bracket.series[1]))
                     }
                     NavigationLink {
-                        SeriesDetailView(fromSeries: dataManager.bracketBucket[0].series[2])
+                        SeriesDetailView(fromSeries: nhlData.bracket.series[2])
                     } label: {
-                        BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[2]))
+                        BracketPairView(pair: SeriesPair(fromSeries: nhlData.bracket.series[2]))
                     }
                     NavigationLink {
-                        SeriesDetailView(fromSeries: dataManager.bracketBucket[0].series[3])
+                        SeriesDetailView(fromSeries: nhlData.bracket.series[3])
                     } label: {
-                        BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[3]))
+                        BracketPairView(pair: SeriesPair(fromSeries: nhlData.bracket.series[3]))
                     }
                 }
                 Spacer()
                 HStack(spacing: 90) {
                     // Quarterfinals.
                     NavigationLink {
-                        SeriesDetailView(fromSeries: dataManager.bracketBucket[0].series[8])
+                        SeriesDetailView(fromSeries: nhlData.bracket.series[8])
                     } label: {
-                        BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[8]))
+                        BracketPairView(pair: SeriesPair(fromSeries: nhlData.bracket.series[8]))
                     }
                     NavigationLink {
-                        SeriesDetailView(fromSeries: dataManager.bracketBucket[0].series[9])
+                        SeriesDetailView(fromSeries: nhlData.bracket.series[9])
                     } label: {
-                        BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[9]))
+                        BracketPairView(pair: SeriesPair(fromSeries: nhlData.bracket.series[9]))
                     }
                 }
                 Spacer()
@@ -136,9 +138,9 @@ struct PlayoffBracketView: View {
                 HStack {
                     // Semifinals: Eastern Conference finals.
                     NavigationLink {
-                        SeriesDetailView(fromSeries: dataManager.bracketBucket[0].series[12])
+                        SeriesDetailView(fromSeries: nhlData.bracket.series[12])
                     } label: {
-                        BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[12]))
+                        BracketPairView(pair: SeriesPair(fromSeries: nhlData.bracket.series[12]))
                     }
                 }
                 Spacer()
@@ -149,18 +151,18 @@ struct PlayoffBracketView: View {
                         .scaledToFit()
                         .frame(width: 100, height: 100)
                     NavigationLink {
-                        SeriesDetailView(fromSeries: dataManager.bracketBucket[0].series[14])
+                        SeriesDetailView(fromSeries: nhlData.bracket.series[14])
                     } label: {
-                        BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[14]))
+                        BracketPairView(pair: SeriesPair(fromSeries: nhlData.bracket.series[14]))
                     }
                 }
                 Spacer()
                 HStack {
                     // Semifinals: Western Conference finals.
                     NavigationLink {
-                        SeriesDetailView(fromSeries: dataManager.bracketBucket[0].series[13])
+                        SeriesDetailView(fromSeries: nhlData.bracket.series[13])
                     } label: {
-                        BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[13]))
+                        BracketPairView(pair: SeriesPair(fromSeries: nhlData.bracket.series[13]))
                     }
                 }
                 Spacer()
@@ -169,38 +171,38 @@ struct PlayoffBracketView: View {
                 HStack(spacing: 90) {
                     // Quarterfinals.
                     NavigationLink {
-                        SeriesDetailView(fromSeries: dataManager.bracketBucket[0].series[10])
+                        SeriesDetailView(fromSeries: nhlData.bracket.series[10])
                     } label: {
-                        BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[10]))
+                        BracketPairView(pair: SeriesPair(fromSeries: nhlData.bracket.series[10]))
                     }
                     NavigationLink {
-                        SeriesDetailView(fromSeries: dataManager.bracketBucket[0].series[11])
+                        SeriesDetailView(fromSeries: nhlData.bracket.series[11])
                     } label: {
-                        BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[11]))
+                        BracketPairView(pair: SeriesPair(fromSeries: nhlData.bracket.series[11]))
                     }
                 }
                 Spacer()
                 HStack(spacing: 15) {
                     // Final 16, Western Conference group.
                     NavigationLink {
-                        SeriesDetailView(fromSeries: dataManager.bracketBucket[0].series[4])
+                        SeriesDetailView(fromSeries: nhlData.bracket.series[4])
                     } label: {
-                        BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[4]))
+                        BracketPairView(pair: SeriesPair(fromSeries: nhlData.bracket.series[4]))
                     }
                     NavigationLink {
-                        SeriesDetailView(fromSeries: dataManager.bracketBucket[0].series[5])
+                        SeriesDetailView(fromSeries: nhlData.bracket.series[5])
                     } label: {
-                        BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[5]))
+                        BracketPairView(pair: SeriesPair(fromSeries: nhlData.bracket.series[5]))
                     }
                     NavigationLink {
-                        SeriesDetailView(fromSeries: dataManager.bracketBucket[0].series[6])
+                        SeriesDetailView(fromSeries: nhlData.bracket.series[6])
                     } label: {
-                        BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[6]))
+                        BracketPairView(pair: SeriesPair(fromSeries: nhlData.bracket.series[6]))
                     }
                     NavigationLink {
-                        SeriesDetailView(fromSeries: dataManager.bracketBucket[0].series[7])
+                        SeriesDetailView(fromSeries: nhlData.bracket.series[7])
                     } label: {
-                        BracketPairView(pair: SeriesPair(fromSeries: dataManager.bracketBucket[0].series[7]))
+                        BracketPairView(pair: SeriesPair(fromSeries: nhlData.bracket.series[7]))
                     }
                 }
                 Spacer()
@@ -208,8 +210,7 @@ struct PlayoffBracketView: View {
             .padding([.leading, .trailing], 10)
             .navigationTitle("NHL Playoffs")
             .task {
-                print("Invoke dataManager.loadBracket with default year: \(playoffYear)")
-                await dataManager.loadBracket(year: playoffYear)
+                await nhlData.loadBracket(year: playoffYear)
             }
 
         }

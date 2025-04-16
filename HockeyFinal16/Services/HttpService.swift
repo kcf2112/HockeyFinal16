@@ -50,7 +50,6 @@ struct HttpService<T: Codable> {
                 if isJSONArray {
                     let decoded = try decoder.decode( [T].self, from: data )
                     if decoded.isEmpty {
-                        // Some mutual funds may not have profile data.
                         throw APIError.missingData
                     }
                     return decoded[0]
@@ -61,7 +60,13 @@ struct HttpService<T: Codable> {
                 }
             }
             catch {
-                throw APIError.decodingError( error.localizedDescription )
+                // TODO: Check for .mismatch?
+                if let dataString = String(data: data, encoding: .utf8) {
+                    print("Bogus dataString: \n\(dataString)")
+                }
+                
+                print("\(error.localizedDescription)")
+                throw APIError.decodingError(error.localizedDescription)
             }
         }
         catch {

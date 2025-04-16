@@ -1,5 +1,5 @@
 //
-//  Pairing.swift
+//  SeriesPair.swift
 //  HockeyFinal16
 //
 //  Created by Kevin Filer on 4/10/25.
@@ -19,17 +19,20 @@ struct SeriesPair {
     var team2 = "?"
     var team2Wins = "0"
     var team2Color: Color = .white
+    // TODO: Need to compute text color?
     var team2TextColor: Color = .gray
 
-    init(fromSeries series: Series) {
+    init(fromSeries series: Bracket.Series) {
         team1 = series.topSeedTeam.abbrev;
         team1Wins = String(series.topSeedWins)
+        
         if let team = TeamColors(rawValue: team1) {
             team1Color = team.primaryColor
         }
         
         team2 = series.bottomSeedTeam.abbrev
         team2Wins = String(series.bottomSeedWins)
+        
         if let team = TeamColors(rawValue: team2) {
             team2Color = team.primaryColor
         }
