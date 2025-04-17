@@ -23,8 +23,9 @@
 //   -- Eastern Conf: A-D seriesLetter
 //   -- Western Conf: E-H seriesLetter
 //   -- Note: conferences are not identified at this level
-//   -- Note: also have "seriesTitle" and "seriesAbbrev" fields; badly named
+//   -- Note: also have "seriesTitle" and "seriesAbbrev" fields; not useful at this level
 //      --- Seem to be alternate playoffRound identifiers
+//      --- See later playoff rounds
 //
 // - "playoffRound":2
 //   -- Eastern Conf: I, J seriesLetter
@@ -50,14 +51,13 @@ import Foundation
 
 // The top level data structure that carries a full NHL playoff bracket
 // report for a given year.
-import Foundation
-
+//
 struct Bracket: Codable {
     struct Series: Codable {
         struct TopSeedTeam: Codable {
             struct Name: Codable {
                 var `default`: String = ""
-                var fr: String = ""
+                var fr: String?
             }
 
             struct CommonName: Codable {
@@ -66,7 +66,7 @@ struct Bracket: Codable {
 
             struct PlaceNameWithPreposition: Codable {
                 var `default`: String = ""
-                var fr: String = ""
+                var fr: String?
             }
 
             var id: Int = 0
@@ -102,21 +102,21 @@ struct Bracket: Codable {
             var darkLogo = URL(string: "")
         }
 
-        var seriesURL: String = ""
         var seriesTitle: String = ""
         var seriesAbbrev: String = ""
         var seriesLetter: String = ""
+        var seriesURL: String?
         var playoffRound: Int = 0
         var topSeedRank: Int = 0
-        var topSeedRankAbbrev: String = ""
+        var topSeedRankAbbrev: String?
         var topSeedWins: Int = 0
         var bottomSeedRank: Int = 0
-        var bottomSeedRankAbbrev: String = ""
+        var bottomSeedRankAbbrev: String?
         var bottomSeedWins: Int = 0
-        var winningTeamID: Int = 0
-        var losingTeamID: Int = 0
-        var topSeedTeam = TopSeedTeam()
-        var bottomSeedTeam = BottomSeedTeam()
+        var winningTeamID: Int?
+        var losingTeamID: Int?
+        var topSeedTeam: TopSeedTeam?
+        var bottomSeedTeam: BottomSeedTeam?
         var seriesLogo: URL?
         var seriesLogoFr: URL?
         var conferenceAbbrev: String?
@@ -150,7 +150,6 @@ struct Bracket: Codable {
     var series: [Series] = []
     
     init() {
-        //let defaultSeries = Bracket.Series()
         self.series = Array(repeating: Bracket.Series(), count: 15)
     }
 }

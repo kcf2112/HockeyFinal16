@@ -19,8 +19,6 @@ let bracketSeriesWidth = 75.0
 
 // TODO:
 // - Combine team logos with team names (if space permits.)
-// - Add games won alongside the team abbreviations.
-// - Add team colors to pairings
 // - Add a background color
 
 struct PlayoffBracketView: View {
@@ -40,7 +38,7 @@ struct PlayoffBracketView: View {
                             startPoint: .top,
                             endPoint: .bottom))
                     .frame(width: bracketSeriesWidth, height: 65)
-                // Outline the ractangle.
+                // Outline the rectangle.
                 RoundedRectangle(cornerRadius: 15)
                     .stroke(Color.gray, lineWidth: 3)
                     .frame(width: bracketSeriesWidth, height: 65)
@@ -51,14 +49,13 @@ struct PlayoffBracketView: View {
                 VStack {
                     Spacer()
                     HStack() {
-                        // TODO: Compute text color for better contrast?
-                        Text(pair.team1).foregroundStyle(.white)
-                        Text(pair.team1Wins).foregroundStyle(.white)
+                        Text(pair.team1).foregroundStyle(pair.team1TextColor)
+                        Text(pair.team1Wins).foregroundStyle(pair.team1TextColor)
                     }
                     Spacer()
                     HStack() {
-                        Text(pair.team2).foregroundStyle(.white)
-                        Text(pair.team2Wins).foregroundStyle(.white)
+                        Text(pair.team2).foregroundStyle(pair.team2TextColor)
+                        Text(pair.team2Wins).foregroundStyle(pair.team2TextColor)
                     }
                     Spacer()
                 }
@@ -69,11 +66,11 @@ struct PlayoffBracketView: View {
     // Static data file for test only.  Convert to api retrieval.
     // var bracketData: Bracket = Bundle.main.decode("playoffs2024.json")
      
-    @State private var playoffYear = "2024"
+    @State private var playoffYear = String(DateTimeUtils.getCurrentYear())
     @State private var playoffYearIdx = 1
     @State var nhlData = NHLDataManager()
     
-    let years = ["2025", "2024", "2023", "2022", "2021", "2020"]
+    let years = ["2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018"]
         
     // See Models/Bracket.swift for info about the playoff data.
     var body: some View {
@@ -118,7 +115,7 @@ struct PlayoffBracketView: View {
                     }
                 }
                 Spacer()
-                HStack(spacing: 90) {
+                HStack(spacing: 98) {
                     // Quarterfinals.
                     NavigationLink {
                         SeriesDetailView(fromSeries: nhlData.bracket.series[8])
@@ -167,7 +164,7 @@ struct PlayoffBracketView: View {
                 Spacer()
                 Text("Western Conference")
                 Spacer()
-                HStack(spacing: 90) {
+                HStack(spacing: 98) {
                     // Quarterfinals.
                     NavigationLink {
                         SeriesDetailView(fromSeries: nhlData.bracket.series[10])

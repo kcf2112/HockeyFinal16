@@ -13,28 +13,28 @@ struct SeriesPair {
     var team1 = "?"
     var team1Wins = "0"
     var team1Color: Color = .white
-    // TODO: Need to compute text color?
-    var team1TextColor: Color = .gray
+    var team1TextColor: Color = .white
 
     var team2 = "?"
     var team2Wins = "0"
     var team2Color: Color = .white
-    // TODO: Need to compute text color?
-    var team2TextColor: Color = .gray
+    var team2TextColor: Color = .white
 
     init(fromSeries series: Bracket.Series) {
-        team1 = series.topSeedTeam.abbrev;
+        team1 = series.topSeedTeam?.abbrev ?? "";
         team1Wins = String(series.topSeedWins)
         
         if let team = TeamColors(rawValue: team1) {
             team1Color = team.primaryColor
+            team1TextColor = team.textColor
         }
         
-        team2 = series.bottomSeedTeam.abbrev
+        team2 = series.bottomSeedTeam?.abbrev ?? ""
         team2Wins = String(series.bottomSeedWins)
         
         if let team = TeamColors(rawValue: team2) {
             team2Color = team.primaryColor
+            team2TextColor = team.textColor
         }
     }
 }

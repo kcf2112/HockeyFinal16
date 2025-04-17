@@ -24,9 +24,9 @@ enum TeamColors: String, Hashable, CaseIterable
             case .BOS:
                 return .bostonGold
             case .BUF:
-                return .navyBlue
+                return .royalBlue
             case .CGY:
-                return .red
+                return .calgaryRed
             case .CAR:
                 return .red
             case .CHI:
@@ -34,7 +34,7 @@ enum TeamColors: String, Hashable, CaseIterable
             case .COL:
                 return .burgundy
             case .CBJ:
-                return .blue
+                return .unionBlue
             case .DAL:
                 return .victoryGreen
             case .DET:
@@ -42,19 +42,19 @@ enum TeamColors: String, Hashable, CaseIterable
             case .EDM:
                 return .navy
             case .FLA:
-                return .blue
+                return .navy
             case .LAK:
                 return .silver
             case .MIN:
                 return .forestGreen
             case .MTL:
-                return .red
+                return .montrealRed
             case .NSH:
                 return .navy
             case .NJD:
                 return .red
             case .NYI:
-                return .royalBlue
+                return .islanderBlue
             case .NYR:
                 return .blue
             case .OTT:
@@ -72,7 +72,7 @@ enum TeamColors: String, Hashable, CaseIterable
             case .TBL:
                 return .tampaBayBlue
             case .TOR:
-                return .blue
+                return .torontoBlue
             case .VAN:
                 return .blue
             case .VGK:
@@ -246,18 +246,21 @@ extension Color
     static let burntOrange = Color(red: 229/255, green: 114/255, blue: 0)
     static let coolGray = Color(red: 151/255, green: 153/255, blue: 155/255)
     static let darkGray = Color(red: 124/255, green: 135/255, blue: 142/255)
-    static let deepPacificTeal = Color(red: 0, green: 98/255, blue: 114/255)
+    static let deepPacificTeal = Color(red: 0, green: 109/255, blue: 117/255)
     static let deepSeaBlue = Color(red: 0, green: 22/255, blue: 40/255)
     static let desertSand = Color(red: 226/255, green: 214/255, blue: 181/255)
+    static let calgaryRed = Color(red: 210/255, green: 0, blue: 28/255)
     static let flatGold = Color(red: 185/255, green: 151/255, blue: 91/255)
     static let flatSilver = Color(red: 162/255, green: 170/255, blue: 173/255)
     static let flyersOrange = Color(red: 247/255, green: 73/255, blue: 2/255)
-    static let forestGreen = Color(red: 21/255, green: 71/255, blue: 52/255)
+    static let forestGreen = Color(red: 2/255, green: 71/255, blue: 48/255)
     static let gold = Color(red: 204/255, green: 138/255, blue: 0)
     static let harvestGold = Color(red: 234/255, green: 170/255, blue: 0)
     static let iceBlue = Color(red: 153/255, green: 217/255, blue: 217/255)
-    static let ironRangeRed = Color(red: 166/255, green: 25/255, blue: 46/255)
+    static let ironRangeRed = Color(red: 175/255, green: 35/255, blue: 36/255)
+    static let islanderBlue = Color(red: 0, green: 83/255, blue: 155/255)
     static let metallicGold = Color(red: 181/255, green: 152/255, blue: 90/255)
+    static let montrealRed = Color(red: 175/255, green: 30/255, blue: 45/255)
     static let navy = Color(red: 4/255, green: 30/255, blue: 66/255)
     static let navyBlue = Color(red: 0, green: 38/255, blue: 84/255)
     static let pittsburghGold = Color(red: 181/255, green: 152/255, blue: 90/255)
@@ -265,6 +268,8 @@ extension Color
     static let royalBlue = Color(red: 0, green: 48/255, blue: 135/255)
     static let silver = Color(red: 162/255, green: 170/255, blue: 173/255)
     static let steelGray = Color(red: 51/255, green: 63/255, blue: 72/255)
-    static let tampaBayBlue = Color(red: 0, green: 32/255, blue: 91/255)
-    static let victoryGreen = Color(red: 0, green: 99/255, blue: 65/255)
+    static let tampaBayBlue = Color(red: 0, green: 40/255, blue: 104/255)
+    static let torontoBlue = Color(red: 0, green: 32/255, blue: 91/255)
+    static let unionBlue = Color(red: 0, green: 38/255, blue: 84/255)
+    static let victoryGreen = Color(red: 0, green: 104/255, blue: 71/255)
 }

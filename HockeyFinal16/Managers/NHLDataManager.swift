@@ -13,7 +13,8 @@ import SwiftUI
 
 // Manages JSON data retrievals from the NHL data API site.
 // See https://www.donnywals.com/comparing-observable-to-observableobjects/
-@Observable // iOS 17.0 or newer
+//
+@Observable
 class NHLDataManager {
     
     let BASE_URL = "https://api-web.nhle.com/v1/"
@@ -60,7 +61,7 @@ class NHLDataManager {
             let series: PlayoffSeries = try await httpService.getJSON(isJSONArray: false)
             playoffSeries = series
             
-            // Building the series game scores here simplifies processing in the view.
+            // Build the series game scores here to simplify logic in the view.
             let topTeam = series.topSeedTeam.abbrev
             let botTeam = series.bottomSeedTeam.abbrev
             var topScores = [Int]()
@@ -87,20 +88,5 @@ class NHLDataManager {
             }
             // playoffSeries = PlayoffSeries()
         }
-    }
-    func isWinner(game: PlayoffSeries.Game, teamAbbrev: String) -> Bool {
-        var teamAbbrevScore = 0
-        var otherTeamScore = 0
-        
-        if teamAbbrev == game.homeTeam.abbrev {
-            teamAbbrevScore = game.homeTeam.score
-            otherTeamScore = game.awayTeam.score
-        }
-        else {
-            teamAbbrevScore = game.awayTeam.score
-            otherTeamScore = game.homeTeam.score
-        }
-        
-        return teamAbbrevScore > otherTeamScore
     }
 }
