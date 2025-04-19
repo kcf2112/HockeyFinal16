@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct HockeyFinal16App: App {
+    @State private var nhlData = NHLDataManager()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environment(nhlData)
         }
     }
 }

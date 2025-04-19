@@ -63,12 +63,9 @@ struct PlayoffBracketView: View {
         }
     }
 
-    // Static data file for test only.  Convert to api retrieval.
-    // var bracketData: Bracket = Bundle.main.decode("playoffs2024.json")
-     
     @State private var playoffYear = String(DateTimeUtils.getCurrentYear())
+    @Environment(NHLDataManager.self) private var nhlData
     @State private var playoffYearIdx = 1
-    @State var nhlData = NHLDataManager()
     
     let years = ["2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018"]
         

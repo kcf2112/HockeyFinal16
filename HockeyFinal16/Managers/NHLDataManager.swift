@@ -19,9 +19,35 @@ class NHLDataManager {
     
     let BASE_URL = "https://api-web.nhle.com/v1/"
     
+    var boxScore = BoxScore()
     var bracket = Bracket()
-    var playoffSeries = PlayoffSeries()
     var gameScores: [String : [Int]] = [:]
+    var gameStory = GameStory()
+    var playoffSeries = PlayoffSeries()
+
+    /*
+     Retrieve the box score data for the specified game.
+     */
+    @MainActor
+    func loadBoxScore( gameID: Int ) async {
+        let targetUrl = BASE_URL + "gamecenter/" + String(gameID) + "/boxscore"
+        print( "NHLDataManager loadBoxScore: targetUrl: \(targetUrl)" )
+        
+        let httpService = HttpService<BoxScore>( urlString: targetUrl )
+        do {
+            let box: BoxScore = try await httpService.getJSON(isJSONArray: false)
+            boxScore = box
+        }
+        catch {
+            if( error.localizedDescription.contains( "cancelled" ) ) {
+                // Not a true retrieval error, a routine task cancellation
+                print( "NHLDataManager: Data task cancelled: \(error)" );
+            }
+            else {
+                print( "NHLDataManager: Could not retrieve BoxScore data: \(error)" );
+            }
+        }
+    }
     
     /*
      Retrieve the entire 15-game playoff bracket.
@@ -42,9 +68,30 @@ class NHLDataManager {
                 print( "NHLDataManager: Data task cancelled: \(error)" );
             }
             else {
-                print( "NHLDataManager: Could not retrieve bracket data: \(error)" );
+                print( "NHLDataManager: Could not retrieve Bracket data: \(error)" );
             }
             // bracket = NHLDataManager.defaultBracket
+        }
+    }
+    
+    @MainActor
+    func loadGameStory( gameID: Int ) async {
+        let targetUrl = BASE_URL + "wsc/game-story/" + String(gameID)
+        print( "NHLDataManager loadGameStory: targetUrl: \(targetUrl)" )
+        
+        let httpService = HttpService<GameStory>( urlString: targetUrl )
+        do {
+            let gstory: GameStory = try await httpService.getJSON(isJSONArray: false)
+            gameStory = gstory
+        }
+        catch {
+            if( error.localizedDescription.contains( "cancelled" ) ) {
+                // Not a true retrieval error, a routine task cancellation
+                print( "NHLDataManager: Data task cancelled: \(error)" );
+            }
+            else {
+                print( "NHLDataManager: Could not retrieve GameStory data: \(error)" );
+            }
         }
     }
     
@@ -84,7 +131,7 @@ class NHLDataManager {
                 print( "NHLDataManager: Data task cancelled: \(error)" );
             }
             else {
-                print( "NHLDataManager: Could not retrieve playoffSeries data: \(error)" );
+                print( "NHLDataManager: Could not retrieve PlayoffSeries data: \(error)" );
             }
             // playoffSeries = PlayoffSeries()
         }

@@ -125,7 +125,7 @@ enum TeamColors: String, Hashable, CaseIterable
             case .NJD:
                 return .black
             case .NYI:
-                return .orange
+                return .islanderOrange
             case .NYR:
                 return .red
             case .OTT:
@@ -259,6 +259,7 @@ extension Color
     static let iceBlue = Color(red: 153/255, green: 217/255, blue: 217/255)
     static let ironRangeRed = Color(red: 175/255, green: 35/255, blue: 36/255)
     static let islanderBlue = Color(red: 0, green: 83/255, blue: 155/255)
+    static let islanderOrange = Color(red: 244/255, green: 125/255, blue: 48/255)
     static let metallicGold = Color(red: 181/255, green: 152/255, blue: 90/255)
     static let montrealRed = Color(red: 175/255, green: 30/255, blue: 45/255)
     static let navy = Color(red: 4/255, green: 30/255, blue: 66/255)

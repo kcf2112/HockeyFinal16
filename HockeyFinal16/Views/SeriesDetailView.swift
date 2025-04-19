@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct SeriesDetailView: View {
-    @State var nhlData = NHLDataManager()
+    @Environment(NHLDataManager.self) private var nhlData
     
     // let series: Series // Series info carried in Bracket.
     let topAbbrev: String
@@ -108,32 +108,39 @@ struct SeriesDetailView: View {
                         Text("No games yet.").font(.headline)
                         Spacer()
                     }
-                    ForEach(nhlData.playoffSeries.games) { game in
-                        HStack {
-                            Image("\(game.homeTeam.abbrev)")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: logoSize, height: logoSize)
-                            Text("\(game.homeTeam.score)")
-                                .font(.title)
-                                .fontWeight(.bold)
-                            Spacer()
-                            VStack {
-                                Text("\(game.gameState == "OFF" ? "Final" :"")").font(.callout)
-                                Text("\(game.gameOutcome.lastPeriodType)").font(.callout)
+                    NavigationStack {
+                        List {
+                            ForEach(nhlData.playoffSeries.games) { game in
+                                NavigationLink(destination: GameSummaryView(gameID: game.id))
+                                {
+                                    HStack {
+                                        Image("\(game.homeTeam.abbrev)")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: logoSize, height: logoSize)
+                                        Text("\(game.homeTeam.score)")
+                                            .font(.title)
+                                            .fontWeight(.bold)
+                                        Spacer()
+                                        VStack {
+                                            Text("\(game.gameState == "OFF" ? "Final" :"")").font(.callout)
+                                            Text("\(game.gameOutcome.lastPeriodType)").font(.callout)
+                                        }
+                                        // TODO: Add VStack for in-progress game: current period and time.
+                                        Spacer()
+                                        Text("\(game.awayTeam.score)")
+                                            .font(.title)
+                                            .fontWeight(.bold)
+                                        Image("\(game.awayTeam.abbrev)")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: logoSize, height: logoSize)
+                                    }
+                                }
                             }
-                            // TODO: Add VStack for in-progress game: current period and time.
-                            
-                            Spacer()
-                            Text("\(game.awayTeam.score)")
-                                .font(.title)
-                                .fontWeight(.bold)
-                            Image("\(game.awayTeam.abbrev)")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: logoSize, height: logoSize)
                         }
                     }
+                    Spacer()
                 }
             }
             .task {
